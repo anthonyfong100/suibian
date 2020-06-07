@@ -16,11 +16,11 @@ const matchModels = (filename: string, member: string) => {
 
 let db: Sequelize;
 console.log(process.env.NODE_ENV);
-if (process.env.NODE_ENV === "local") {
+if (process.env.NODE_ENV === "dev") {
   const databaseName = process.env.DATABASENAME || "suibian";
   const databaseUsername = process.env.DATABASEUSERNAME || "";
   const databasePassword = process.env.DATABASEPASSWORD || "";
-  const databaseUrl = process.env.LOCALURL;
+  const databaseUrl = "localhost";
 
   db = new Sequelize(databaseName, databaseUsername, databasePassword, {
     host: databaseUrl,
@@ -34,18 +34,28 @@ if (process.env.NODE_ENV === "local") {
       idle: 10000,
     },
   });
+  console.log(`databaseName:${databaseName} databaseUsername:${databaseUsername} databasePassword:${databasePassword} databaseUrl:${databaseUrl}`)
   console.log("connecting to local database");
 } else {
-  const remoteUrl = process.env.DATABASE_URL || "";
-  db = new Sequelize(remoteUrl, {
+  // production mode
+  const databaseName = process.env.DATABASENAME || "suibian";
+  const databaseUsername = process.env.DATABASEUSERNAME || "";
+  const databasePassword = process.env.DATABASEPASSWORD || "";
+  const databaseUrl = process.env.DATABASE_URL;
+
+  db = new Sequelize(databaseName, databaseUsername, databasePassword, {
+    host: databaseUrl,
     dialect: "postgres",
-    protocol: "postgres",
     modelMatch: matchModels,
     models: [__dirname + "/models"],
-    dialectOptions: {
-      ssl: true,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
     },
   });
+  console.log(`databaseName:${databaseName} databaseUsername:${databaseUsername} databasePassword:${databasePassword} databaseUrl:${databaseUrl}`)
   console.log("connecting to remote database");
 }
 
