@@ -1,0 +1,4 @@
+# Creation rules are evaluated sequentially, the first match wins
+creation_rules:
+  # Catchall that will encrypt the file using GCP KMS
+  - gcp_kms: projects/suibian-dev/locations/global/keyRings/sops/cryptoKeys/sops-key

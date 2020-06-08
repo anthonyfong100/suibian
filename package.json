@@ -7,7 +7,7 @@
   "scripts": {
     "app-start": "cd packages/suibian-app && yarn start",
     "start": "cd packages/suibian-server && yarn start",
-    "server-dev": "cd packages/suibian-server && yarn run dev",
+    "server-dev": "cd packages/suibian-server && NODE_ENV=local yarn run dev",
     "dev": "concurrently \"yarn run app-start\" \"yarn run server-dev\"",
     "kill-port-mac": "lsof -ti:4000 | xargs kill",
     "build:commons": "cd packages/commons && yarn build",

@@ -34,3 +34,7 @@ yarn-error.log*
 #build files
 /packages/suibian-server/dist
 /packages/commons/dist
+
+#env secrets
+packages/suibian-server/.env
+packages/suibian-app/.env
