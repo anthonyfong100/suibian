@@ -1,4 +1,11 @@
 steps:
+  - name: gcr.io/suibian-dev/gcloud-sops
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        sops -d packages/suibian-app/.enc.env > packages/suibian-app/.env
+        sops -d packages/suibian-server/.enc.env > packages/suibian-server/.env
   - name: gcr.io/cloud-builders/docker
     args: [build, -t, gcr.io/suibian-dev/suibian-app, .]
   - name: gcr.io/cloud-builders/docker
