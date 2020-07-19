@@ -47,6 +47,7 @@ if (process.env.NODE_ENV === "local") {
     },
   });
   console.log("connecting to remote database");
+  console.log(`remote db url is ${remoteUrl}`)
 }
 
 export { db };
