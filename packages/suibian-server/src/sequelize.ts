@@ -44,10 +44,11 @@ if (process.env.NODE_ENV === "local") {
     models: [__dirname + "/models"],
     dialectOptions: {
       ssl: true,
+      rejectUnauthorized: false
     },
   });
   console.log("connecting to remote database");
-  console.log(`remote db url is ${remoteUrl}`)
+  console.log(`remote url is ${remoteUrl}`)
 }
 
 export { db };
